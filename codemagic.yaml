@@ -8,6 +8,7 @@ workflows:
       - name: Set up Android platform files
         script: |
           flutter create --platforms=android .
+          echo "android.newDsl=false" >> android/gradle.properties
       - name: Get packages
         script: |
           flutter pub get
