@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 import '../models/clip_model.dart';
 import '../models/track_model.dart';
 
@@ -14,15 +13,11 @@ class VideoService {
 
   /// Generate a thumbnail image for a clip, used on the timeline.
   Future<String?> generateThumbnail(String videoPath) async {
-    final dir = await getTemporaryDirectory();
-    final thumb = await VideoThumbnail.thumbnailFile(
-      video: videoPath,
-      thumbnailPath: dir.path,
-      imageFormat: ImageFormat.PNG,
-      maxWidth: 200,
-      quality: 60,
-    );
-    return thumb;
+    final outPath = await _tempPath("thumb_${DateTime.now().millisecondsSinceEpoch}.png");
+    final cmd = '-y -ss 0.5 -i "$videoPath" -frames:v 1 -vf "scale=200:-1" "$outPath"';
+    final session = await FFmpegKit.execute(cmd);
+    final rc = await session.getReturnCode();
+    return outPath;
   }
 
   /// Build the ffmpeg video filter string for a single effect.

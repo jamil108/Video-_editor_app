@@ -14,7 +14,6 @@ dependencies:
   # Video playback & editing
   video_player: ^2.8.6
   ffmpeg_kit_flutter_new: ^1.4.0   # run ffmpeg commands (trim, transitions, effects, export)
-  video_thumbnail: ^0.5.3          # generate thumbnails for timeline clips
 
   # File handling
   file_picker: ^6.2.0

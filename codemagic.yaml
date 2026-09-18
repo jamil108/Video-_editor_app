@@ -8,11 +8,6 @@ workflows:
       - name: Set up Android platform files
         script: |
           flutter create --platforms=android .
-      - name: Force older AGP version
-        script: |
-          sed -i '' -E 's/com\.android\.application.*version.*/com.android.application" version "8.1.0" apply false/' android/settings.gradle || \
-          sed -i -E 's/com\.android\.application.*version.*/com.android.application" version "8.1.0" apply false/' android/settings.gradle
-          cat android/settings.gradle
       - name: Get packages
         script: |
           flutter pub get
