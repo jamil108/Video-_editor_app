@@ -3,12 +3,11 @@ workflows:
     name: Android Workflow
     max_build_duration: 60
     environment:
-      flutter: stable
+      flutter: 3.24.5
     scripts:
       - name: Set up Android platform files
         script: |
           flutter create --platforms=android .
-          echo "android.newDsl=false" >> android/gradle.properties
       - name: Get packages
         script: |
           flutter pub get
