@@ -17,6 +17,7 @@ class VideoService {
     final cmd = '-y -ss 0.5 -i "$videoPath" -frames:v 1 -vf "scale=200:-1" "$outPath"';
     final session = await FFmpegKit.execute(cmd);
     final rc = await session.getReturnCode();
+    if (!ReturnCode.isSuccess(rc)) return null;
     return outPath;
   }
 
